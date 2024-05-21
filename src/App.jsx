@@ -1,38 +1,31 @@
-import "./App.css";
-import { Suspense, lazy } from "react";
-import { Loader } from "./components/Loader/Loader";
+import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./pages/Layout/Layout";
-
+import Layout from "./components/Layout/Layout";
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
 const MovieDetailsPage = lazy(() =>
   import("./pages/MovieDetailsPage/MovieDetailsPage")
 );
-const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
+const NotFoundPage = lazy(() =>
+  import("./pages/NotFoundPage/NotFoundPage")
+);
+const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));
 const MovieReviews = lazy(() =>
   import("./components/MovieReviews/MovieReviews")
 );
-const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <Layout>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/movies" element={<MoviesPage />} />
-            <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
-              <Route path="cast" element={<MovieCast />} />
-              <Route path="reviews" element={<MovieReviews />} />
-            </Route>
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
-      </Layout>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/movies" element={<MoviesPage />} />
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+          <Route path="/movies/:movieId/cast" element={<MovieCast />} />
+          <Route path="/movies/:movieId/reviews" element={<MovieReviews />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Layout>
   );
 }
-
-export default App;
