@@ -1,5 +1,5 @@
 import { fetchCast } from "../../movies-api";
-import Loader from "../Loader/Loader";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import css from "./MovieCast.module.css";
