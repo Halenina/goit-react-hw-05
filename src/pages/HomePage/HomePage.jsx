@@ -1,26 +1,35 @@
-import { useEffect, useState } from "react";
+import MovieList from "../../components/MovieList/MovieList";
 import { fetchTrendingMovies } from "../../movies-api";
-import MovieList from "../HomePage/HomePage";
+import { useState, useEffect } from "react";
+import Loader from "../../components/Loader/Loader";
 import css from "./HomePage.module.css";
 
-const HomePage = () => {
-  const [movies, setMovies] = useState(null);
+export default function HomePage() {
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getMovies = async () => {
-      const response = await fetchTrendingMovies();
-      setMovies(response);
-    };
-
-    getMovies();
+    async function getTrendingMovies() {
+      try {
+        setLoading(true);
+        const data = await fetchTrendingMovies();
+        setMovies(data);
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getTrendingMovies();
   }, []);
 
   return (
-    <div className={css.container}>
-      <h1>Tranding Today</h1>
-      {movies !== null && movies.length !== 0 && <MovieList data={movies} />}
+    <div>
+      <p className={css.title}>Trending now</p>
+      {loading && <Loader />}
+      {error && <b>Error</b>}
+      {movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );
-};
-
-export default HomePage;
+}

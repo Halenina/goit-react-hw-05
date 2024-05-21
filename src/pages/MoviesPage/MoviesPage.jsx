@@ -1,4 +1,4 @@
-import MoviesList from "../../components/MovieList/MovieList";
+import MovieList from "../../components/MovieList/MovieList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import { fetchMoviesByName } from "../../movies-api";
@@ -57,7 +57,7 @@ export default function MoviesPage() {
       <SearchBar onSubmit={changeFilter} />
       {loading && <Loader />}
       {error && <b>Error</b>}
-      {movies.length > 0 && <MoviesList movies={filteredMovies} />}
+      {movies.length > 0 && <MovieList movies={filteredMovies} />}
       <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
