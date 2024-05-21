@@ -17,7 +17,7 @@ const MovieReviews = lazy(() =>
 export default function App() {
   return (
     <Layout>
-      <Routes>
+       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
         <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
@@ -27,5 +27,4 @@ export default function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
-  );
 }
