@@ -1,4 +1,4 @@
-import MoviesList from "../../components/MoviesList/MoviesList";
+import MoviesList from "../../components/MovieList/MovieList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import { fetchMoviesByName } from "../../movies-api";
